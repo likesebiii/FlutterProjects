@@ -15,10 +15,9 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 300, 
-      child:  ListView(
-              children: transactions.map(
-                (tx){
-                  return Card(child: Row(
+      child:  ListView.builder(
+              itemBuilder: (ctx, index) {
+                return Card(child: Row(
                     children: <Widget>[
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15,),
@@ -31,7 +30,7 @@ class TransactionList extends StatelessWidget {
                           ),
                         padding: EdgeInsets.all(10),
                         child: Text(
-                          '\$${tx.amount}',
+                          '\$${transactions[index].amount}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.purple,
@@ -41,13 +40,13 @@ class TransactionList extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(tx.title,
+                          Text(transactions[index].title,
                             style: TextStyle( 
                               fontSize: 16, 
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(DateFormat().format(tx.date),
+                          Text(DateFormat().format(transactions[index].date),
                             style: TextStyle( 
                               color: Colors.grey,
                             ),
@@ -57,8 +56,8 @@ class TransactionList extends StatelessWidget {
                     ],
                   ),
                   );
-                }
-              ).toList(),
+              },
+              itemCount: transactions.length,
             ),
       );
   }
